@@ -11,8 +11,10 @@ if len(devices) == 0:
     quit()
 
 device = devices[0]
+last_pixels = []
 
 while True:
+    print('calculating...')
     image = device.screencap()
 
     with open('screen.png', 'wb') as f:
@@ -51,12 +53,13 @@ while True:
 
     start, target1, target2 = transitions
     gap = target1 - start
-    target = target2 - target1
-    distance = (gap + target / 2)
+    distance = gap + 1
 
-    print(transitions)
-    print(distance)
+    print(f'positions: {transitions}')
+    print(f'distance from player to wanted position {distance}')
 
     device.shell(f'input touchscreen swipe 500 500 500 500 {int(distance)}')
 
-    time.sleep(2.5)
+    time_to_wait = 5
+    print(f'Waiting {time_to_wait} seconds...')
+    time.sleep(time_to_wait)
